@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zip Code Information</title>
+</head>
+<body>
+    <h1>Zip Code Information</h1>
+    {% if location %}
+        <p>Zip Code: {{ location.get('zipcode', 'Not available') }}</p>
+        <p>City: {{ location.get('city', 'Not available') }}</p>
+        <p>State: {{ location.get('state', 'Not available') }}</p>
+        {% if weather %}
+            <p>Current Temperature: {{ weather.get('temperature', 'Not available') }}</p>
+            <p>Forecast: {{ weather.get('description', 'Not available') }}</p>
+        {% else %}
+            <p>Weather information not available.</p>
+        {% endif %}
+    {% else %}
+        <p>No zip code information available.</p>
+    {% endif %}
+</body>
+</html>

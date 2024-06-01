@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zip Code Information</title>
+</head>
+<body>
+    <h1>Zip Code Details</h1>
+    {% if location %}
+        <p>Zip Code: {{ location.zipcode }}</p>
+        <p>City: {{ location.city }}</p>
+        <p>State: {{ location.state }}</p>
+    {% else %}
+        <p>No location data available.</p>
+    {% endif %}
+</body>
+</html>
