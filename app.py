@@ -67,6 +67,12 @@ def get_response(data):
                 'time': data[5][0],
                 'temp': data[5][1],
                 'forecast': data[5][2]
+            },
+            '7':
+            {
+                'time': data[6][0],
+                'temp': data[6][1],
+                'forecast': data[6][2]
             }
         }
     return response_data
@@ -79,8 +85,8 @@ def get_hourly(lat, lon):
     data = response.json()
     timezone = data["timezone"]
     if response.status_code == 200:
-        hourly_forecasts = data["hourly"][:6]
-        for i in range(0,6):
+        hourly_forecasts = data["hourly"][:7]
+        for i in range(0,7):
             strhour = get_hour(timezone, hourly_forecasts[i]["dt"])
             data[i] = [strhour,
                 hourly_forecasts[i]["temp"],
