@@ -14,7 +14,10 @@ def get_coord(zipcode):
 def get_hour(timestamp):
     time = datetime.fromtimestamp(timestamp)
     timeStr = time.strftime('%Y-%m-%d %H:%M:%S')
-    hour = timeStr[11:13]
+    if timeStr[11] == "0":
+        hour = timeStr[12]
+    else:
+        hour = timeStr[11:13]
     if eval(hour) > 12:
         hourInt = eval(hour) - 12
         strhour = str(hourInt) + " PM"
@@ -111,4 +114,4 @@ def coord(zipcode):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
