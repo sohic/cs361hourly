@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from datetime import datetime
 import requests
+import pytz
 
 app = Flask(__name__)
 
@@ -11,8 +12,9 @@ def get_coord(zipcode):
     data = response.json()
     return data
 
-def get_hour(timestamp):
-    time = datetime.fromtimestamp(timestamp)
+def get_hour(timezone, timestamp):
+    timeSystem = datetime.fromtimestamp(timestamp)
+    time = timeSystem.astimezone(pytz.timezone(timezone))
     timeStr = time.strftime('%Y-%m-%d %H:%M:%S')
     if timeStr[11] == '0':
         hour = timeStr[12]
@@ -75,10 +77,11 @@ def get_hourly(lat, lon):
     url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely,daily,alerts&appid={api_key}&units=metric"
     response = requests.get(url)
     data = response.json()
+    timezone = data["timezone"]
     if response.status_code == 200:
         hourly_forecasts = data["hourly"][:6]
         for i in range(0,6):
-            strhour = get_hour(hourly_forecasts[i]["dt"])
+            strhour = get_hour(timezone, hourly_forecasts[i]["dt"])
             data[i] = [strhour,
                 hourly_forecasts[i]["temp"],
                 hourly_forecasts[i]["weather"][0]["description"]]
