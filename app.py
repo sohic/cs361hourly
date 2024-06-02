@@ -12,6 +12,7 @@ def get_coord(zipcode):
     data = response.json()
     return data
 
+####################################################################################################################
 def get_hour(timezone, timestamp):
     timeSystem = datetime.fromtimestamp(timestamp)
     time = timeSystem.astimezone(pytz.timezone(timezone))
@@ -30,6 +31,7 @@ def get_hour(timezone, timestamp):
             strhour = hour + " AM"
     return strhour
 
+##############################################################################################################
 def get_response(data):
     response_data = {
             '1':
@@ -77,7 +79,7 @@ def get_response(data):
         }
     return response_data
 
-
+########################################################################################################################
 def get_hourly(lat, lon):
     api_key = '03d39d0a4844727881ad16a48828f5f0'
     url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely,daily,alerts&appid={api_key}&units=metric"
@@ -100,7 +102,7 @@ def get_hourly(lat, lon):
     return response_data
     
     
-
+##################################################################################################################3333
 @app.route('/coord/<zipcode>', methods=['GET'])
 def coord(zipcode):
     
